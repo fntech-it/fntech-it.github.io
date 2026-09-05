@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FNtech – Consulenza in Automazione e AI per le imprese</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #1a1a1a;
+      --ink-soft:   #4a4a4a;
+      --ink-muted:  #888;
+      --paper:      #f7f6f3;
+      --white:      #ffffff;
+      --rule:       #dddbd6;
+      --accent:     #2a5fd6;   /* blu tecnico, deciso ma non aggressivo */
+      --accent-dim: #e8eefb;
+      --mono:       'JetBrains Mono', monospace;
+      --serif:      'DM Serif Display', Georgia, serif;
+      --sans:       'Inter', system-ui, sans-serif;
+      --max:        1080px;
+      --col:        clamp(1.5rem, 5vw, 4rem);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem var(--col);
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 8rem var(--col) 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Firma visiva: griglia tecnica sottile in background */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(42,95,214,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: var(--max);
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 16ch;
+      margin-bottom: 1.8rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--ink-soft);
+      max-width: 52ch;
+      line-height: 1.6;
+      margin-bottom: 2.8rem;
+      font-weight: 300;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.85rem 1.8rem;
+      border-radius: 2px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background .2s, transform .15s;
+    }
+    .hero-cta:hover { background: #1e4db8; transform: translateY(-1px); }
+    .hero-cta-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1.5px solid var(--rule);
+      color: var(--ink-soft);
+      padding: 0.85rem 1.8rem;
+      border-radius: 2px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+      margin-left: 1rem;
+    }
+    .hero-cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem var(--col); }
+    .section-inner { max-width: var(--max); margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 2.5rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; max-width: 3rem;
+      height: 1px;
+      background: var(--rule);
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+    }
+    p { color: var(--ink-soft); max-width: 64ch; }
+
+    /* ── PROBLEMA ── */
+    .problema { background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .problema-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .problema-list { list-style: none; margin-top: 1.5rem; }
+    .problema-list li {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.96rem;
+      color: var(--ink-soft);
+      display: flex; gap: 0.8rem; align-items: flex-start;
+    }
+    .problema-list li:last-child { border-bottom: none; }
+    .problema-list li::before {
+      content: '→';
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .stat-block {
+      background: var(--accent-dim);
+      border: 1px solid rgba(42,95,214,0.15);
+      border-radius: 4px;
+      padding: 2rem;
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.4; }
+    .stat-source { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-muted); margin-top: 1rem; }
+
+    /* ── APPROCCIO ── */
+    .approccio-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .step {
+      border-top: 2px solid var(--accent);
+      padding-top: 1.5rem;
+    }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .step h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      margin-bottom: 0.7rem;
+      color: var(--ink);
+    }
+    .step p { font-size: 0.94rem; }
+
+    /* ── CHI SIAMO ── */
+    .chi-siamo { background: var(--ink); color: var(--paper); }
+    .chi-siamo .section-label { color: rgba(247,246,243,0.4); }
+    .chi-siamo .section-label::after { background: rgba(247,246,243,0.15); }
+    .chi-siamo h2 { color: var(--paper); }
+    .chi-siamo p { color: rgba(247,246,243,0.7); max-width: 60ch; }
+    .honest-box {
+      margin-top: 2.5rem;
+      border: 1px solid rgba(247,246,243,0.15);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 1.8rem;
+      border-radius: 2px;
+    }
+    .honest-box p {
+      font-size: 1.05rem;
+      color: rgba(247,246,243,0.85);
+      font-style: italic;
+      max-width: 58ch;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .team-card {
+      border: 1px solid rgba(247,246,243,0.1);
+      padding: 1.8rem;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.03);
+    }
+    .team-card-name {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--paper);
+      margin-bottom: 0.3rem;
+    }
+    .team-card-role {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .team-card p { font-size: 0.93rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.1rem; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid rgba(247,246,243,0.15);
+      border-radius: 2px;
+      color: rgba(247,246,243,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PILOTA ── */
+    .pilota { border-top: 1px solid var(--rule); }
+    .pilota-box {
+      margin-top: 2.5rem;
+      background: var(--accent-dim);
+      border: 1px solid rgba(42,95,214,0.2);
+      border-radius: 4px;
+      padding: 2.5rem 2.8rem;
+      max-width: 680px;
+    }
+    .pilota-box h3 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .pilota-box p { font-size: 0.97rem; margin-bottom: 0.7rem; max-width: 52ch; }
+    .pilota-box p:last-of-type { margin-bottom: 1.5rem; }
+    .pilota-list { list-style: none; margin: 1rem 0 1.5rem; }
+    .pilota-list li {
+      font-size: 0.93rem;
+      color: var(--ink-soft);
+      padding: 0.35rem 0;
+      display: flex; gap: 0.7rem;
+    }
+    .pilota-list li::before { content: '✓'; color: var(--accent); font-weight: 600; }
+
+    /* ── CONTATTI ── */
+    .contatti { background: var(--white); border-top: 1px solid var(--rule); }
+    .contatti-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-item {
+      margin-top: 1.5rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .contact-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .contact-value {
+      font-size: 1.05rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-value:hover { color: var(--accent); }
+    .location-note { font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem var(--col);
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+    .footer-logo span { color: var(--accent); }
+    footer p {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      max-width: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .problema-grid,
+      .approccio-steps,
+      .team-grid,
+      .contatti-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-cta-ghost { margin-left: 0; margin-top: 0.8rem; }
+      nav .nav-links { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#"><span>FN</span>tech</a>
+    <ul class="nav-links">
+      <li><a href="#problema">Il problema</a></li>
+      <li><a href="#approccio">Come lavoriamo</a></li>
+      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#pilota">Progetto pilota</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Consulenza · Automazione · AI applicata</p>
+      <h1>Meno lavoro<br />ripetitivo.<br /><em>Più tempo</em><br />per fare impresa.</h1>
+      <p class="hero-sub">
+        FNtech affianca le piccole e medie imprese del Veneto nel rendere automatico quello che oggi viene fatto a mano — liberando tempo, riducendo errori e aprendo spazio a ciò che conta davvero.
+      </p>
+      <div>
+        <a class="hero-cta" href="#pilota">Partecipa al progetto pilota</a>
+        <a class="hero-cta-ghost" href="#chi-siamo">Chi siamo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problema" id="problema">
+    <div class="section-inner">
+      <p class="section-label">Il contesto</p>
+      <div class="problema-grid">
+        <div>
+          <h2>Le piccole imprese italiane lavorano ancora così.</h2>
+          <p>Non per pigrizia. Perché nessuno ha mai mostrato loro che esiste un altro modo — accessibile, concreto e adatto alla loro realtà.</p>
+          <ul class="problema-list">
+            <li>Rapportini cartacei ricopiati al computer ogni sera</li>
+            <li>Preventivi costruiti da zero ogni volta, senza template</li>
+            <li>Follow-up sui clienti gestito a memoria o su post-it</li>
+            <li>Documenti archiviati in cartelle senza struttura né ricerca</li>
+            <li>Scadenze tenute su agenda cartacea o nella testa del titolare</li>
+            <li>La soluzione standard: assumere un'altra persona</li>
+          </ul>
+        </div>
+        <div>
+          <div class="stat-block">
+            <div class="stat-number">83,6%</div>
+            <div class="stat-label">delle imprese italiane non utilizza ancora alcuna tecnologia di intelligenza artificiale.<br /><br />Non perché non vogliano — perché non sanno da dove iniziare.</div>
+            <div class="stat-source">Fonte: ISTAT, Rapporto Imprese e ICT 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROCCIO -->
+  <section id="approccio">
+    <div class="section-inner">
+      <p class="section-label">Come lavoriamo</p>
+      <h2>Tre fasi. Nessuna magia.</h2>
+      <p>Non vendiamo software. Affianchiamo l'imprenditore nel capire cosa ha senso automatizzare nel suo contesto, come farlo, e — soprattutto — come farlo funzionare davvero nel quotidiano.</p>
+      <div class="approccio-steps">
+        <div class="step">
+          <p class="step-num">01 · DIAGNOSI</p>
+          <h3>Ascoltiamo prima di proporre</h3>
+          <p>Una sessione di analisi dei processi reali. Mappiamo dove va il tempo, dove si perdono informazioni, dove i carichi di lavoro si accumulano senza necessità.</p>
+        </div>
+        <div class="step">
+          <p class="step-num">02 · PROGETTO</p>
+          <h3>Scegliamo la soluzione giusta</h3>
+          <p>Non la più complessa. Non la più costosa. Quella che si adatta a come lavorate già — con strumenti semplici, spesso già disponibili, configurati per il vostro caso specifico.</p>
+        </div>
+        <div class="step">
+          <p class="step-num">03 · ACCOMPAGNAMENTO</p>
+          <h3>Restiamo finché funziona</h3>
+          <p>Implementiamo la soluzione e formiamo le persone che la useranno. Il nostro obiettivo è che dopo di noi sappiate andare avanti da soli — non che restiate dipendenti da noi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHI SIAMO -->
+  <section class="chi-siamo" id="chi-siamo">
+    <div class="section-inner">
+      <p class="section-label">Chi siamo</p>
+      <h2>Una startup. Con le idee chiare e le referenze ancora da costruire.</h2>
+      <p>Preferiamo dirlo subito: FNtech è un'iniziativa nuova. Non abbiamo decine di clienti alle spalle né un portfolio di casi studio. Abbiamo competenze solide, una visione precisa del problema e la determinazione di dimostrare il nostro valore partendo dai fatti.</p>
+      <div class="honest-box">
+        <p>"Le piccole imprese del Veneto non hanno bisogno di consulenti che parlino di AI in astratto. Hanno bisogno di qualcuno che venga in ufficio, capisca come lavorano davvero e li aiuti a migliorarlo — concretamente, senza complicare quello che già funziona."</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PILOTA -->
+  <section class="pilota" id="pilota">
+    <div class="section-inner">
+      <p class="section-label">Come iniziare insieme</p>
+      <h2>Cerchiamo imprese con cui sperimentare sul campo.</h2>
+      <p>Abbiamo la metodologia, le competenze e il tempo. Ci mancano le prime referenze — e per costruirle stiamo cercando aziende disponibili a partecipare a un progetto pilota.</p>
+      <div class="pilota-box">
+        <h3>Progetto pilota — gratuito e senza impegno</h3>
+        <p>Per le prime aziende che accettano di collaborare, offriamo la fase di diagnosi dei processi completamente <strong>gratuita</strong>. Nessun obbligo di proseguire. Nessun costo nascosto.</p>
+        <p>In cambio, vi chiediamo solo il tempo necessario per capire come lavorate.</p>
+        <ul class="pilota-list">
+          <li>Diagnosi dei processi interni: gratuita</li>
+          <li>Report scritto con le priorità di intervento: incluso</li>
+          <li>Nessun obbligo di proseguire con noi</li>
+          <li>Durata: una sessione di 60–90 minuti, in presenza o da remoto</li>
+          <li>Ideale per aziende con 5–15 dipendenti e un ufficio amministrativo</li>
+        </ul>
+        <a class="hero-cta" href="#contatti">Scrivici per saperne di più</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATTI -->
+  <section class="contatti" id="contatti">
+    <div class="section-inner contatti-inner">
+      <div>
+        <p class="section-label">Contatti</p>
+        <h2>Parliamoci.<br />Senza impegno.</h2>
+        <p>Siamo disponibili per una chiamata conoscitiva, un incontro di persona o uno scambio via email. Non vendiamo niente al primo contatto — vogliamo capire se possiamo esservi davvero utili.</p>
+      </div>
+      <div>
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a class="contact-value" href="mailto:start.fntech@gmail.com">start.fntech@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <a class="contact-value" href="http://www.linkedin.com/company/fntech-digital">fntech-digital</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Territorio</span>
+          <span class="contact-value">Veneto</span>
+          <span class="location-note">Operiamo prevalentemente in provincia di Rovigo e nelle province limitrofe. Disponibili anche da remoto su tutto il territorio nazionale.</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Risposta</span>
+          <span class="contact-value" style="font-size:.95rem;font-weight:400;color:var(--ink-soft);">Di solito entro 24 ore lavorative.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo"><span>FN</span>tech</span>
+    <p>© 2026 FNtech · Consulenza in Automazione e Intelligenza Artificiale · Veneto, Italia</p>
+    <p style="color:var(--ink-muted);font-size:.75rem;">—</p>
+  </footer>
+
+</body>
+</html>
